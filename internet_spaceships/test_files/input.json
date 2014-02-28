@@ -1,3 +1,114 @@
+[{
+    "position": [0, 0],
+    "velocity": 100,
+    "heading": 180,
+
+    "fired_on": [
+        {
+            "target_id": "abcdef",
+            "hit": true,
+            "shield_damage": 10,
+            "armor_damage": 10
+        },
+        {
+            "target_id": "fedcba",
+            "hit": false,
+            "shield_damage": 0,
+            "armor_damage": 0
+        }
+    ],
+
+    "shot_at_me": [
+        {
+            "target_id": "abcdef",
+            "hit": true,
+            "shield_damage": 10,
+            "armor_damage": 10
+        },
+        {
+            "target_id": "fedcba",
+            "hit": false,
+            "shield_damage": 0,
+            "armor_damage": 0
+        }
+    ],
+
+    "shields": 100,
+    "shield_recharge": 1,
+
+    "weapon_power": 10,
+
+    "armor": 100,
+
+    "thrusters": 10,
+
+    "doge": 0,
+
+    "objects": {
+        "asteroids": [
+            {
+                "id": "deadbeef",
+                "type": "asteroid",
+                "position": [210, -100],
+                "heading": 0,
+                "velocity": 0,
+                "name": "dottie",
+                "size": 1,
+                "shields": null,
+                "armor": null
+            }
+        ],
+        "ships": [
+            {
+                "id": "123abc",
+                "type": "ship",
+                "position": [100, -100],
+                "heading": 270,
+                "velocity": 10,
+                "name": "enterprise",
+                "size": 1,
+                "shields": 100,
+                "armor": 1
+            }
+        ],
+        "bodies": [
+            {
+                "id": "aaaaaa",
+                "type": "body",
+                "position": [200, -100],
+                "heading": 0,
+                "velocity": 0,
+                "name": "alderaan",
+                "size": 10,
+                "shields": null,
+                "armor": null
+            },
+            {
+                "id": "bada55",
+                "type": "body",
+                "position": [210, -100],
+                "heading": 180,
+                "velocity": 1,
+                "name": "not_a_moon",
+                "size": 3,
+                "shields": null,
+                "armor": null
+            }
+        ]
+    },
+    "log": [
+      {
+        "type": "combat",
+        "message": "You were hit for 6 damage",
+        "timestamp": 213908210823
+      },
+      {
+        "type": "combat",
+        "message": "You were hit for 6 damage",
+        "timestamp": 213908210823
+      }
+    ]
+},
 {
     "position": [0, 0],
     "velocity": 100,
@@ -108,4 +219,4 @@
         "timestamp": 213908210823
       }
     ]
-}
+}]

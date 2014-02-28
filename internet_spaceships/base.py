@@ -185,9 +185,11 @@ class BaseFirmware(object):
             input_data = json.loads(sys.argv[1])
         except ValueError:
             raise ValueError("Input JSON couldn't be decoded. Weird.")
-        self.update_sensors(input_data)
-        self.input()
-        self.write_output()
+        for tick in input_data:
+            print tick
+            self.update_sensors(tick)
+            self.input()
+            self.write_output()
 
     def _distance(self, position):
         """ Cartesian distance to position
