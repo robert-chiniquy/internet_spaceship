@@ -33,22 +33,17 @@
         }
     ],
 
-//    "shields_level": 1,
     "shields": 100,
     "shield_recharge": 1,
 
-//    "weapons_level": 1,
     "weapon_power": 10,
 
-//    "armor_level": 1,
     "armor": 100,
 
-//    "thrusters_level": 1,
     "thrusters": 10,
 
-    "doge": 0, // minerals
+    "doge": 0,
 
-    // List of objects (ships, bodies, asteroid) in space
     "objects": {
         "asteroids": [
             {
@@ -65,15 +60,15 @@
         ],
         "ships": [
             {
-                "id": "123abc", // used to target/mine
-                "type": "ship", // ship, body (planet/moon), or asteroid
-                "position": [100, -100], // coordinates
+                "id": "123abc",
+                "type": "ship",
+                "position": [100, -100],
                 "heading": 270,
                 "velocity": 10,
-                "name": "enterprise", // friendly name
-                "size": 1, // diameter
-                "shields": 100, // shields for ships,
-                "armor": 1 // armor left until destroyed
+                "name": "enterprise",
+                "size": 1,
+                "shields": 100,
+                "armor": 1
             }
         ],
         "bodies": [
@@ -105,12 +100,12 @@
       {
         "type": "combat",
         "message": "You were hit for 6 damage",
-        "timestamp": 213908210823 // timestamp in milliseconds
+        "timestamp": 213908210823
       },
       {
         "type": "combat",
         "message": "You were hit for 6 damage",
-        "timestamp": 213908210823 // timestamp in milliseconds
+        "timestamp": 213908210823
       }
     ]
 }

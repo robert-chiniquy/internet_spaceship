@@ -5,7 +5,7 @@ import math
 
 class BaseFirmware(object):
 
-    def __init__(self, initial_position):
+    def __init__(self):
         """ initial_position is a tuple in the form (x,y)
         """
         # Set these with their matching properties. e.g. self.throttle = 100
@@ -24,9 +24,15 @@ class BaseFirmware(object):
 
         # Attributes
         self.doge = 0
-        self.position = initial_position
-        self.velocity = 0
+        self.position = [0, 0]
+        self.speed = 0
         self.shields = 100
+
+        # Don't blow your engine! This is unbounded, so it can go over 9000.
+        self.engineTemperature = 0
+
+        # Unused power
+        self.power = 0
 
         self.shields_level = 1
         self.shield_recharge = 1
@@ -40,8 +46,12 @@ class BaseFirmware(object):
         self.thrusters_level = 1
         self.thrusters = 10
 
+        # Represents what happens in the game, e.g. getting hit or shooting
+        # another ship.
+        self.log = {}
+
         # Represents every ship/body/asteroid detected
-        self.objects = {}
+        self.scanners = {}
 
     def input(self):
         """ This function will be called every time data is sent to the
@@ -94,7 +104,7 @@ class BaseFirmware(object):
         asteroid.
         """
         # See if the asteroid is nearby
-        for asteroid in self.objects.get('asteroids'):
+        for asteroid in self.scanners.get('asteroids'):
             if asteroid['id'] == asteroid_id:
                 asteroid_position = asteroid['position']
                 distance = self._distance(asteroid_position)
@@ -106,16 +116,6 @@ class BaseFirmware(object):
                                      asteroid_id,
                                      distance))
         raise ValueError("Could not find target_id {}".format(asteroid_id))
-
-    # def upgrade(self, system):
-    #     """ Upgrade one of your systems to the next level (if possible).
-    #     system can be 'shields', 'weapons', 'armor' or 'thrusters'.
-    #     """
-    #     if system not in ['shields', 'weapons', 'armor', 'thrusters']:
-    #         raise ValueError("System must be one of 'shields', 'weapons', "
-    #                          "'armor' or 'thrusters'.")
-    #
-    #     self.upgrade_system = system
 
     # Utility functions you probably don't want to modify
 
@@ -143,26 +143,27 @@ class BaseFirmware(object):
         self.upgrade_system = None
 
         # Save all the data
-        for key, val in json_lines:
+        for key, val in json_lines.items():
             setattr(self, key, val)
 
         # Call the custom firmware event
         self.input()
 
     def start(self):
-        read_lines = ""
-        while 1:
-            input = sys.stdin.readline()
-            if input == "":
-                # Nothing to read in, send the data to the starship
-                json_lines = json.dumps(read_lines)
-                self.update_sensors(json_lines)
-            else:
-                # Still stuff to read, so add it to the lines
-                read_lines += input
+        """
+        This is the reading function
+        """
+        if not 1 < len(sys.argv) <= 3:
+            raise ValueError("firmware takes exactly 1 argument, the input "
+                             "JSON.")
+        try:
+            input_data = json.loads(sys.argv[1])
+        except ValueError:
+            raise ValueError("Input JSON couldn't be decoded. Weird.")
+        self.update_sensors(input_data)
 
     def _distance(self, position):
-        """ Distance to position
+        """ Cartesian distance to position
         """
         return math.sqrt((position[0] - self.position[0])**2 +
                          (position[1] - self.position[1])**2)

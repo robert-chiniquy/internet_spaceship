@@ -1,30 +1,16 @@
+import json
 import random
+import subprocess
 import firmware
 
 
-def random_position():
-    x = random.randrange(-100, 100, 1)
-    y = random.randrange(-100, 100, 1)
-    return x, y
-
-
-def random_fake_input():
-    pass
-
-
 def test(ship):
-    ship.update_sensors({
-        'position': [0, 0],
-        'velocity': 1
-    })
-    ship.heading = 180
-    ship.throttle = 50
-    ship.update_sensors({
-        'position': [1, 1],
-        'velocity': 1
-    })
+    read_data = open('test_files/input.json').read()
+    # print json.loads(read_data)
+    # input_data = json.dumps(json.loads(read_data))
+    subprocess.call("python firmware.py '{}'".format(read_data), shell=True)
 
 
 if __name__ == '__main__':
-    ship = firmware.Spaceship(random_position())
+    ship = firmware.Firmware()
     test(ship)
