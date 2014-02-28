@@ -17,7 +17,7 @@ To get started:
 
     git clone YOUR_FORK_URL
 
-    cd internet_spaceships
+    cd internet_spaceship
 
     python internet_spaceships/test.py
 
