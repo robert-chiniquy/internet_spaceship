@@ -1,0 +1,188 @@
+{
+    "position": [0, 0],
+    "velocity": 100,
+    "heading": 180,
+
+    "fired_on": [
+        {
+            "target_id": "abcdef",
+            "hit": true,
+            "shield_damage": 10,
+            "armor_damage": 10
+        },
+        {
+            "target_id": "fedcba",
+            "hit": false,
+            "shield_damage": 0,
+            "armor_damage": 0
+        }
+    ],
+
+    "shot_at_me": [
+        {
+            "target_id": "abcdef",
+            "hit": true,
+            "shield_damage": 10,
+            "armor_damage": 10
+        },
+        {
+            "target_id": "fedcba",
+            "hit": false,
+            "shield_damage": 0,
+            "armor_damage": 0
+        }
+    ],
+
+    "shields_level": 1,
+    "shields": 100,
+    "shield_recharge": 1,
+
+    "weapons_level": 1,
+    "weapon_power": 10,
+
+    "armor_level": 1,
+    "armor": 100,
+
+    "thrusters_level": 1,
+    "thrusters": 10,
+
+    "doge": 0, // minerals
+    "sensors": [
+        {
+            "id": "123abc", // used to target/mine
+            "type": "ship", // ship, body (planet/moon), or asteroid
+            "position": [100, -100], // coordinates
+            "heading": 270,
+            "velocity": 10,
+            "name": "enterprise", // friendly name
+            "size": 1, // diameter
+            "shields": 100, // shields for ships,
+            "armor": 1 // armor left until destroyed
+        },
+        {
+            "id": "aaaaaa",
+            "type": "body",
+            "position": [200, -100],
+            "heading": 0,
+            "velocity": 0,
+            "name": "alderaan",
+            "size": 10,
+            "shields": null,
+            "armor": null
+        },
+        {
+            "id": "bada55",
+            "type": "body",
+            "position": [210, -100],
+            "heading": 180,
+            "velocity": 1,
+            "name": "not_a_moon",
+            "size": 3,
+            "shields": null,
+            "armor": null
+        },
+        {
+            "id": "deadbeef",
+            "type": "asteroid",
+            "position": [210, -100],
+            "heading": 0,
+            "velocity": 0,
+            "name": "dottie",
+            "size": 1,
+            "shields": null,
+            "armor": null
+        }
+    ]
+//    "upgrades":
+//    {
+//        "armor": {
+//            "1": {
+//                "cost": 100,
+//                "base": 100
+//            },
+//            "2": {
+//                "cost": 100,
+//                "base": 100
+//            },
+//            "3": {
+//                "cost": 100,
+//                "base": 100
+//            },
+//            "4": {
+//                "cost": 100,
+//                "base": 100
+//            },
+//            "5": {
+//                "cost": 100,
+//                "base": 100
+//            }
+//        },
+//        "shields": {
+//            "1": {
+//                "cost": 100,
+//                "base": 100
+//            },
+//            "2": {
+//                "cost": 100,
+//                "base": 100
+//            },
+//            "3": {
+//                "cost": 100,
+//                "base": 100
+//            },
+//            "4": {
+//                "cost": 100,
+//                "base": 100
+//            },
+//            "5": {
+//                "cost": 100,
+//                "base": 100
+//            }
+//        },
+//        "weapons": {
+//            "1": {
+//                "cost": 100,
+//                "base": 100
+//            },
+//            "2": {
+//                "cost": 100,
+//                "base": 100
+//            },
+//            "3": {
+//                "cost": 100,
+//                "base": 100
+//            },
+//            "4": {
+//                "cost": 100,
+//                "base": 100
+//            },
+//            "5": {
+//                "cost": 100,
+//                "base": 100
+//            }
+//        },
+//        "thrusters": {
+//            "1": {
+//                "cost": 100,
+//                "base": 100
+//            },
+//            "2": {
+//                "cost": 100,
+//                "base": 100
+//            },
+//            "3": {
+//                "cost": 100,
+//                "base": 100
+//            },
+//            "4": {
+//                "cost": 100,
+//                "base": 100
+//            },
+//            "5": {
+//                "cost": 100,
+//                "base": 100
+//            }
+//        }
+//
+//    }
+}

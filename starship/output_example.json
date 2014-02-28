@@ -1,0 +1,9 @@
+{
+    "throttle": 100,
+    "heading": 180,
+
+    "fire_on": null, // target_id
+    "mine_target": null, // target_id
+    // One of 'shields', 'weapons', 'armor' or 'thrusters'
+    "upgrade_system": null // system_to_upgrade
+}

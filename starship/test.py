@@ -17,6 +17,8 @@ def test(ship):
         'position': [0, 0],
         'velocity': 1
     })
+    ship.heading = 180
+    ship.throttle = 50
     ship.update_sensors({
         'position': [1, 1],
         'velocity': 1

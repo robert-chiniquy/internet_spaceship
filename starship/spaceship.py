@@ -6,3 +6,5 @@ class Spaceship(base.BaseSpaceship):
         print "input!"
         print "velocity", self.velocity
         print "position", self.x, self.y
+        print "throttle", self.throttle,
+        print "heading", self.heading
