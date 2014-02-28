@@ -110,12 +110,12 @@ class BaseFirmware(object):
         asteroid.
         """
         # See if the asteroid is nearby
-        for asteroid in self.scanners:
-            if asteroid['type'] == 'asteroid' and \
-                            asteroid['id'] == asteroid_id:
-
+        for asteroid in self.get_asteroids():
+            print asteroid
+            if asteroid['id'] == asteroid_id:
                 if asteroid['distance'] <= 2:
                     self.mine_target = asteroid_id
+                    return
                 else:
                     raise ValueError("Asteroid {} is too far away, "
                                      "is {} units away.".format(

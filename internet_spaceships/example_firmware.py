@@ -41,7 +41,7 @@ class Firmware(base.BaseFirmware):
         mining.
         """
         for asteroid in self.get_asteroids():
-            if asteroid['position'] <= 2:
+            if asteroid['distance'] <= 2:
                 self.throttle = 0
                 self.mine(asteroid['id'])
                 logging.debug("Mining {}".format(asteroid['id']))
