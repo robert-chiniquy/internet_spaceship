@@ -1,4 +1,6 @@
+import logging
 from internet_spaceships import base
+
 
 
 class Firmware(base.BaseFirmware):

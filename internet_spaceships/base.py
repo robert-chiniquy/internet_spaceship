@@ -1,4 +1,5 @@
 import json
+import logging
 import sys
 import math
 
@@ -53,6 +54,9 @@ class BaseFirmware(object):
 
         # Represents every ship/body/asteroid detected
         self.scanners = []
+
+        # Set up a logger so we can debug
+        logging.basicConfig(filename='debug.log', level=logging.DEBUG)
 
     def input(self):
         """ This function will be called every time data is sent to the
@@ -148,9 +152,6 @@ class BaseFirmware(object):
         for key, val in json_lines.items():
             setattr(self, key, val)
 
-        # Call the custom firmware event
-        self.input()
-
     def start(self):
         """
         This is the reading function
@@ -163,6 +164,7 @@ class BaseFirmware(object):
         except ValueError:
             raise ValueError("Input JSON couldn't be decoded. Weird.")
         self.update_sensors(input_data)
+        self.input()
 
     def _distance(self, position):
         """ Cartesian distance to position
