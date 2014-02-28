@@ -18,3 +18,5 @@ firmware.py and send it the data from test_files/input.json. We advise you do
 this before uploading your ship. If your ship throws an error,
 it will be destroyed and you lose precious Dogecoin (or will,
 when we implement that).
+
+Check out example_firmware.py to see a basic ship.
