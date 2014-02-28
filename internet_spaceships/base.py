@@ -181,11 +181,9 @@ class BaseFirmware(object):
         """
         This is the reading function
         """
-        if not 1 < len(sys.argv) <= 3:
-            raise ValueError("firmware takes exactly 1 argument, the input "
-                             "JSON.")
+        args = ' '.join(sys.argv[1:])
         try:
-            input_data = json.loads(sys.argv[1])
+            input_data = json.loads(args)
         except ValueError:
             raise ValueError("Input JSON couldn't be decoded. Weird.")
         output_data = []
