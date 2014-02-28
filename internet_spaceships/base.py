@@ -188,7 +188,6 @@ class BaseFirmware(object):
             raise ValueError("Input JSON couldn't be decoded. Weird.")
         output_data = []
         for tick in input_data:
-            print tick
             self.update_sensors(tick)
             self.input()
             # Save the output data to a list we print out at the end.
