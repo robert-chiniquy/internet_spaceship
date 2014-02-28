@@ -18,8 +18,11 @@ class Firmware(base.BaseFirmware):
             return
 
         # No asteroid? Go fast in circles!
-        self.throttle = 100
+        if self.throttle > 99:
+            self.throttle = 40
+        self.throttle += 1
         logging.debug("Current throttle: {}".format(self.throttle))
+
         # Turn 1 degree every tick
         if self.heading - 1 <= 0:
             self.heading = 359
