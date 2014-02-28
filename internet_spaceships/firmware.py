@@ -5,9 +5,10 @@ from internet_spaceships import base
 class Firmware(base.BaseFirmware):
     def input(self):
         """ Implement your code here. This will be called on every tick after
-        the class data has been set up from the JSON.
+        the class data has been set up from the JSON. Look at debug.log to
+        see the debugging information.
         """
-        print "Woo!"
+        logging.debug("Woo!")
 
 
 if __name__ == "__main__":

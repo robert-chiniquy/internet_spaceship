@@ -146,10 +146,10 @@ class BaseFirmware(object):
 
     # Utility functions you probably don't want to modify
 
-    def write_output(self):
-        """ Send data back to the server via stdout
+    def output(self):
+        """ Return the current output state
         """
-        data = {
+        return {
             'position': self.position,
             'throttle': self.throttle,
             'heading': self._heading,
@@ -158,8 +158,11 @@ class BaseFirmware(object):
             'upgrade_system': self.upgrade_system
         }
 
+    def write_output(self, output_data):
+        """ Send data back to the server via stdout
+        """
         # Send data to the stdout
-        print json.dumps(data)
+        print json.dumps(output_data)
 
     def update_sensors(self, json_lines):
         """ Take the sensor data and update our sensors, then call your
@@ -185,11 +188,13 @@ class BaseFirmware(object):
             input_data = json.loads(sys.argv[1])
         except ValueError:
             raise ValueError("Input JSON couldn't be decoded. Weird.")
+        output_data = []
         for tick in input_data:
-            print tick
             self.update_sensors(tick)
             self.input()
-            self.write_output()
+            # Save the output data to a list we print out at the end.
+            output_data.append(self.output())
+        self.write_output(output_data)
 
     def _distance(self, position):
         """ Cartesian distance to position
