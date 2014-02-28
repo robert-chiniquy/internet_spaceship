@@ -1,5 +1,6 @@
 import json
 import sys
+import math
 
 
 class BaseSpaceship(object):
@@ -20,9 +21,14 @@ class BaseSpaceship(object):
         # You shouldn't change these. It won't affect anything. They get
         # updated each time you get an input.
 
+        # Actions
+        self.fire_on = None
+        self.mine_target = None
+        self.upgrade_system = None
+
         # Attributes
         self.doge = 0
-        self.x, self.y = initial_position
+        self.position = initial_position
         self.velocity = 0
         self.shields = 100
 
@@ -38,10 +44,8 @@ class BaseSpaceship(object):
         self.thrusters_level = 1
         self.thrusters = 10
 
-        # Actions
-        self.fire_on = None
-        self.mine_target = None
-        self.upgrade_system = None
+        # Represents every ship/body/asteroid detected
+        self.objects = {}
 
     def input(self):
         """ This function will be called every time data is sent to the
@@ -79,7 +83,39 @@ class BaseSpaceship(object):
     def fire(self, target_id):
         """ Attempt to fire at the target.
         """
-        self.fire_on = target_id
+        # See if the target is a ship. Can't fire on bodies/asteroids
+        for object in self.objects:
+            if object['id'] == target_id:
+                if object['type'] == 'ship':
+                    self.fire_on = target_id
+                else:
+                    raise ValueError("Fire target id {} is not a ship, "
+                                     "is {}.".format(target_id,
+                                                     object['type']))
+        raise ValueError("Could not find target_id {}".format(target_id))
+
+    def mine(self, asteroid_id):
+        """ Attempt to mine an asteroid. You must be within 1 unit of the
+        asteroid.
+        """
+        # See if the asteroid is nearby
+        for object in self.objects:
+            if object['id'] == asteroid_id:
+                if object['type'] == 'asteroid':
+                    asteroid_position = object['position']
+                    distance = self._distance(asteroid_position)
+                    if distance <= 2:
+                        self.mine = asteroid_id
+                    else:
+                        raise ValueError("Asteroid {} is too far away, "
+                                         "is {} units away.".format(
+                                         asteroid_id,
+                                         distance))
+                else:
+                    raise ValueError("Mine target id {} is not an asteroid, "
+                                     "is {}.".format(asteroid_id,
+                                                     object['type']))
+        raise ValueError("Could not find target_id {}".format(asteroid_id))
 
     # def upgrade(self, system):
     #     """ Upgrade one of your systems to the next level (if possible).
@@ -91,19 +127,21 @@ class BaseSpaceship(object):
     #
     #     self.upgrade_system = system
 
-    def mine(self, asteroid_id):
-        """ Attempt to mine an asteroid. You must be within 1 unit of the
-        asteroid.
-        """
-        self.mine = asteroid_id
+    # Utility functions you probably don't want to modify
 
     def write_output(self):
-        """ Send data back to the server.
+        """ Send data back to the server via stdout
         """
         data = {
-            'position': (self.x, self.y),
-            'throttle': self.throttle
+            'position': self.position,
+            'throttle': self.throttle,
+            'heading': self._heading,
+            'fire_on': self.fire_on,
+            'mine_target': self.mine_target,
+            'upgrade_system': self.upgrade_system
         }
+
+        # Send data to the stdout
         print json.dumps(data)
 
     def update_sensors(self, json_lines):
@@ -114,20 +152,12 @@ class BaseSpaceship(object):
         self.mine_target = None
         self.upgrade_system = None
 
-        for sensor, sensor_func in self.sensors.items():
-            if sensor in json_lines:
-                # Send the sensor data to the sensor func
-                getattr(self, sensor_func)(json_lines[sensor])
+        # Save all the data
+        for key, val in json_lines:
+            setattr(self, key, val)
+
+        # Call the custom firmware event
         self.input()
-
-    def update_position(self, current_position):
-        """ Takes a position dict from the input and updates the ships
-        position.
-        """
-        self.x, self.y = current_position
-
-    def update_velocity(self, current_velocity):
-        self.velocity = current_velocity
 
     def start(self):
         read_lines = ""
@@ -140,3 +170,9 @@ class BaseSpaceship(object):
             else:
                 # Still stuff to read, so add it to the lines
                 read_lines += input
+
+    def _distance(self, position):
+        """ Distance to position
+        """
+        return math.sqrt((position[0] - self.position[0])**2 +
+                         (position[1] - self.position[1])**2)

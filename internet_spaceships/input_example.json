@@ -47,7 +47,9 @@
     "thrusters": 10,
 
     "doge": 0, // minerals
-    "sensors": [
+
+    // List of objects (ships, bodies, asteroid) in space
+    "objects": [
         {
             "id": "123abc", // used to target/mine
             "type": "ship", // ship, body (planet/moon), or asteroid

@@ -1,5 +1,5 @@
 import random
-import spaceship
+import firmware
 
 
 def random_position():
@@ -26,5 +26,5 @@ def test(ship):
 
 
 if __name__ == '__main__':
-    ship = spaceship.Spaceship(random_position())
+    ship = firmware.Spaceship(random_position())
     test(ship)
