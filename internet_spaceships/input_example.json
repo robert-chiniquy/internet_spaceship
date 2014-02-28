@@ -3,36 +3,6 @@
     "velocity": 100,
     "heading": 180,
 
-    "fired_on": [
-        {
-            "target_id": "abcdef",
-            "hit": true,
-            "shield_damage": 10,
-            "armor_damage": 10
-        },
-        {
-            "target_id": "fedcba",
-            "hit": false,
-            "shield_damage": 0,
-            "armor_damage": 0
-        }
-    ],
-
-    "shot_at_me": [
-        {
-            "target_id": "abcdef",
-            "hit": true,
-            "shield_damage": 10,
-            "armor_damage": 10
-        },
-        {
-            "target_id": "fedcba",
-            "hit": false,
-            "shield_damage": 0,
-            "armor_damage": 0
-        }
-    ],
-
 //    "shields_level": 1,
     "shields": 100,
     "shield_recharge": 1,
