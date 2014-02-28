@@ -20,11 +20,11 @@ class Firmware(base.BaseFirmware):
         # No asteroid? Go fast in circles!
         self.throttle = 100
         logging.debug("Current throttle: {}".format(self.throttle))
-        # Turn 45 degrees every turn
-        if self.heading + 45 > 359:
-            self.heading -= 314
+        # Turn 1 degree every tick
+        if self.heading + 1 > 359:
+            self.heading = 0
         else:
-            self.heading += 45
+            self.heading += 1
         logging.debug("Current heading: {}".format(self.heading))
 
     def fire_on_closest_ship(self):
