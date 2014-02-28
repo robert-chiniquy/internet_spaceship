@@ -3,11 +3,7 @@ import sys
 import math
 
 
-class BaseSpaceship(object):
-    sensors = {
-        'position': 'update_position',
-        'velocity': 'update_velocity',
-    }
+class BaseFirmware(object):
 
     def __init__(self, initial_position):
         """ initial_position is a tuple in the form (x,y)
@@ -49,7 +45,7 @@ class BaseSpaceship(object):
 
     def input(self):
         """ This function will be called every time data is sent to the
-        starship by the game. You must implement this in spaceship.py if you
+        spaceship by the game. You must implement this in firmware.py if you
         want your ship to do anything.
         """
         raise NotImplementedError("You must implement the read_input function"
@@ -84,14 +80,13 @@ class BaseSpaceship(object):
         """ Attempt to fire at the target.
         """
         # See if the target is a ship. Can't fire on bodies/asteroids
-        for object in self.objects:
-            if object['id'] == target_id:
-                if object['type'] == 'ship':
+        for ship in self.objects.get('ships'):
+            if ship['id'] == target_id:
+                if ship['type'] == 'ship':
                     self.fire_on = target_id
                 else:
                     raise ValueError("Fire target id {} is not a ship, "
-                                     "is {}.".format(target_id,
-                                                     object['type']))
+                                     "is {}.".format(target_id, ship['type']))
         raise ValueError("Could not find target_id {}".format(target_id))
 
     def mine(self, asteroid_id):
@@ -99,22 +94,17 @@ class BaseSpaceship(object):
         asteroid.
         """
         # See if the asteroid is nearby
-        for object in self.objects:
-            if object['id'] == asteroid_id:
-                if object['type'] == 'asteroid':
-                    asteroid_position = object['position']
-                    distance = self._distance(asteroid_position)
-                    if distance <= 2:
-                        self.mine = asteroid_id
-                    else:
-                        raise ValueError("Asteroid {} is too far away, "
-                                         "is {} units away.".format(
-                                         asteroid_id,
-                                         distance))
+        for asteroid in self.objects.get('asteroids'):
+            if asteroid['id'] == asteroid_id:
+                asteroid_position = asteroid['position']
+                distance = self._distance(asteroid_position)
+                if distance <= 2:
+                    self.mine_target = asteroid_id
                 else:
-                    raise ValueError("Mine target id {} is not an asteroid, "
-                                     "is {}.".format(asteroid_id,
-                                                     object['type']))
+                    raise ValueError("Asteroid {} is too far away, "
+                                     "is {} units away.".format(
+                                     asteroid_id,
+                                     distance))
         raise ValueError("Could not find target_id {}".format(asteroid_id))
 
     # def upgrade(self, system):
