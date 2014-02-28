@@ -39,6 +39,7 @@ class BaseFirmware(object):
 
         self.weapons_level = 1
         self.weapon_power = 10
+        self.weapon_range = 50
 
         self.armor_level = 1
         self.armor = 100
@@ -48,10 +49,10 @@ class BaseFirmware(object):
 
         # Represents what happens in the game, e.g. getting hit or shooting
         # another ship.
-        self.log = {}
+        self.log = []
 
         # Represents every ship/body/asteroid detected
-        self.scanners = {}
+        self.scanners = []
 
     def input(self):
         """ This function will be called every time data is sent to the
@@ -90,8 +91,8 @@ class BaseFirmware(object):
         """ Attempt to fire at the target.
         """
         # See if the target is a ship. Can't fire on bodies/asteroids
-        for ship in self.objects.get('ships'):
-            if ship['id'] == target_id:
+        for ship in self.scanners:
+            if ship['type'] == 'ship' and ship['id'] == target_id:
                 if ship['type'] == 'ship':
                     self.fire_on = target_id
                 else:
@@ -104,17 +105,17 @@ class BaseFirmware(object):
         asteroid.
         """
         # See if the asteroid is nearby
-        for asteroid in self.scanners.get('asteroids'):
-            if asteroid['id'] == asteroid_id:
-                asteroid_position = asteroid['position']
-                distance = self._distance(asteroid_position)
-                if distance <= 2:
+        for asteroid in self.scanners:
+            if asteroid['type'] == 'asteroid' and \
+                            asteroid['id'] == asteroid_id:
+
+                if asteroid['distance'] <= 2:
                     self.mine_target = asteroid_id
                 else:
                     raise ValueError("Asteroid {} is too far away, "
                                      "is {} units away.".format(
                                      asteroid_id,
-                                     distance))
+                                     asteroid['distance']))
         raise ValueError("Could not find target_id {}".format(asteroid_id))
 
     # Utility functions you probably don't want to modify
@@ -135,7 +136,8 @@ class BaseFirmware(object):
         print json.dumps(data)
 
     def update_sensors(self, json_lines):
-        """ Take the sensor data and update our sensors, then call input.
+        """ Take the sensor data and update our sensors, then call your
+        firmware input.
         """
         # Reset
         self.fire_on = None
