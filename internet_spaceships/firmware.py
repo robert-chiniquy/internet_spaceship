@@ -2,7 +2,6 @@ import logging
 from internet_spaceships import base
 
 
-
 class Firmware(base.BaseFirmware):
     def input(self):
         """ Implement your code here. This will be called on every tick after

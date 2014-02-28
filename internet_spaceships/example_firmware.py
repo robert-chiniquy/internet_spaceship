@@ -30,9 +30,8 @@ class Firmware(base.BaseFirmware):
     def fire_on_closest_ship(self):
         """ Look for the closest ship and shoot at them
         """
-        for ship in self.scanners:
-            if ship['type'] == 'ship' and \
-                    ship['distance'] <= self.weapon_range:
+        for ship in self.get_ships():
+            if ship['distance'] <= self.weapon_range:
                 self.fire_on(ship['id'])
                 logging.debug("Shot at {}".format(ship['id']))
 
@@ -41,9 +40,8 @@ class Firmware(base.BaseFirmware):
         all the dogecoin. Returns True if we start mining, False if we aren't
         mining.
         """
-        for asteroid in self.scanners:
-            if asteroid['type'] == 'asteroid' and \
-                    asteroid['position'] <= 2:
+        for asteroid in self.get_asteroids():
+            if asteroid['position'] <= 2:
                 self.throttle = 0
                 self.mine(asteroid['id'])
                 logging.debug("Mining {}".format(asteroid['id']))

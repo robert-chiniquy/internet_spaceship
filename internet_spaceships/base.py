@@ -55,7 +55,8 @@ class BaseFirmware(object):
         # Represents every ship/body/asteroid detected
         self.scanners = []
 
-        # Set up a logger so we can debug
+        # Erase old log file and set up a logger so we can debug
+        open('debug.log', 'w')
         logging.basicConfig(filename='debug.log', level=logging.DEBUG)
 
     def input(self):
@@ -121,6 +122,27 @@ class BaseFirmware(object):
                                      asteroid_id,
                                      asteroid['distance']))
         raise ValueError("Could not find target_id {}".format(asteroid_id))
+
+    def get_asteroids(self):
+        asteroids = []
+        for asteroid in self.scanners:
+            if asteroid['type'] == 'asteroid':
+                asteroids.append(asteroid)
+        return asteroids
+
+    def get_ships(self):
+        ships = []
+        for ship in self.scanners:
+            if ship['type'] == 'ship':
+                ships.append(ship)
+        return ships
+
+    def get_planets(self):
+        planets = []
+        for planet in self.scanners:
+            if planet['type'] == 'planet':
+                planets.append(planet)
+        return planets
 
     # Utility functions you probably don't want to modify
 
