@@ -1,4 +1,4 @@
-import base
+from internet_spaceships import base
 
 
 class Firmware(base.BaseFirmware):

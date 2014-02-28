@@ -1,7 +1,7 @@
 import json
 import random
 import subprocess
-import firmware
+from internet_spaceships import firmware
 
 
 def test(ship):
