@@ -13,10 +13,17 @@ Check docs/input_example.json to see the kind of information you'll be given.
 docs/output_example should represent about what will be printed after your
 function is run and sent back to the server.
 
-You can test your firmware.py by calling `python test.py`. It will call your
-firmware.py and send it the data from test_files/input.json. We advise you do
-this before uploading your ship. If your ship throws an error,
-it will be destroyed and you lose precious Dogecoin (or will,
+To get started:
+
+    git clone YOUR_FORK_URL
+
+    cd internet_spaceship
+
+    python internet_spaceships/test.py
+
+It will call your firmware.py and send it the data from test_files/input.json
+. We advise you do this before uploading your ship. If your ship throws an
+error, it will be destroyed and you lose precious Dogecoin (or will,
 when we implement that).
 
 Check out example_firmware.py to see a basic ship.
