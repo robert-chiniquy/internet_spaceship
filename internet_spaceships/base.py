@@ -9,10 +9,11 @@ class BaseFirmware(object):
     def __init__(self):
         """ initial_position is a tuple in the form (x,y)
         """
-        # Set these with their matching properties. e.g. self.throttle = 100
+        # Set these with their matching properties. e.g. 'self.throttle = 100'
         # throttle can be 0 to 100
         self._throttle = 0
-        # heading can be 0 ('north') through 359, going clockwise
+        # heading can be 0 ('north') through 359, going clockwise. Set with
+        # 'self.heading = 180'
         self._heading = 0
 
         # You shouldn't change these. It won't affect anything. They get
@@ -23,7 +24,7 @@ class BaseFirmware(object):
         self.mine_target = None
         self.upgrade_system = None
 
-        # Attributes
+        # Attributes (these are set by the server)
         self.doge = 0
         self.position = [0, 0]
         self.speed = 0
